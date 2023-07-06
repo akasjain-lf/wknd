@@ -207,6 +207,8 @@ export function addFavIcon(href) {
  */
 async function loadLazy(doc) {
   const main = doc.querySelector('main');
+  await loadAtJs();
+
   await loadBlocks(main);
 
   const { hash } = window.location;
@@ -256,6 +258,16 @@ function loadDelayed() {
   // eslint-disable-next-line import/no-cycle
   window.setTimeout(() => import('./delayed.js'), 3000);
   // load anything that can be postponed to the latest here
+}
+
+function loadAtJs() {
+  const adobetargetscript = document.createElement('script');
+  if(window.location.hostname.search('hlx.live') === -1) {
+    adobetargetscript.setAttribute('src', '/scripts/at_v1_preview.js');
+  } else {
+    adobetargetscript.setAttribute('src', '/scripts/at_v1_live.js');
+  }
+  document.head.append(adobetargetscript);
 }
 
 async function loadPage() {
