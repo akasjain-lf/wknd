@@ -588,6 +588,25 @@ export function setup() {
   }
 }
 
+export function serveContentFromTarget(block) {
+  var shouldUseTarget;
+  var mboxName;
+  var parent = block.parentElement.parentElement;
+  if (parent) {
+    shouldUseTarget = parent.getAttribute('data-usetarget');
+    mboxName = parent.getAttribute('data-mbox');
+  }
+
+  if (shouldUseTarget && mboxName) {
+    if (typeof (window.adobe) !== 'undefined' && typeof (window.adobe) !== 'undefined' && typeof (window.adobe.target) !== 'undefined') {
+      getTargetOffer(block, block.children, mboxName);
+      console.log('Rendering block from Target decisioning');
+    } else {
+      block.append(ul);
+    }
+  }
+}
+
 export function getTargetOffer(block, parent, mbox) {
   window.adobe.target.getOffer({
            mbox: mbox,
@@ -595,7 +614,6 @@ export function getTargetOffer(block, parent, mbox) {
              console.log(offer);
              const content = offer && offer[0].content[0];
              var exp = content.index;
-             console.log(exp);
 
              [...parent].forEach((row, i) => {
                exp.some(value => value === i) ? '' : row.remove();

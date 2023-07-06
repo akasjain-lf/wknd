@@ -81,8 +81,8 @@ main .carousel-wrapper .carousel-buttons {
 
 main .carousel-buttons button {
   display: block;
-  height: 10px;
-  width: 10px;
+  height: 20px;
+  width: 20px;
   padding: 0;
   margin: 5px;
   border-radius: 5px;
