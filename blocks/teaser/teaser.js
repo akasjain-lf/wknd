@@ -5,5 +5,5 @@ import {serveContentFromTarget} from "../../scripts/lib-franklin.js";
  */
 export default function decorate(block) {
 
-    serveContentFromTarget(block);
+    //serveContentFromTarget(block);
 }

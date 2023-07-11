@@ -350,8 +350,22 @@ export function buildBlock(blockName, content) {
  */
 function getBlockConfig(block) {
   const blockName = block.getAttribute('data-block-name');
-  const cssPath = `${window.hlx.codeBasePath}/blocks/${blockName}/${blockName}.css`;
-  const jsPath = `${window.hlx.codeBasePath}/blocks/${blockName}/${blockName}.js`;
+  let cssPath = `${window.hlx.codeBasePath}/blocks/${blockName}/${blockName}.css`;
+  let jsPath = `${window.hlx.codeBasePath}/blocks/${blockName}/${blockName}.js`;
+
+  /*if (window.hlx.experiment && window.hlx.experiment.run) {
+    const { experiment } = window.hlx;
+    if (experiment.selectedVariant !== 'control') {
+      const { control } = experiment.variants;
+      if (control && control.blocks && control.blocks.includes(blockName)) {
+        const blockIndex = control.blocks.indexOf(blockName);
+        const variant = experiment.variants[experiment.selectedVariant];
+        const blockPath = variant.blocks[blockIndex];
+        cssPath = `/express/experiments/${experiment.id}/${blockPath}/${blockName}.css`;
+        jsPath = `/express/experiments/${experiment.id}/${blockPath}/${blockName}.js`;
+      }
+    }
+  }*/
 
   if (!window.hlx.patchBlockConfig) {
     return { blockName, cssPath, jsPath };
